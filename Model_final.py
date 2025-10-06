@@ -9,8 +9,8 @@ from pathlib import Path
 import numpy as np
 import joblib
 
-FIG_DIR = Path("figures_test_2")
-OUT_DIR = Path("outputs_test_2")
+FIG_DIR = Path("figures")
+OUT_DIR = Path("outputs")
 FIG_DIR.mkdir(exist_ok=True, parents=True)
 OUT_DIR.mkdir(exist_ok=True, parents=True)
 
@@ -115,11 +115,14 @@ residuals = y_test - y_pred_optimal
 #plt.show()
 
 # Check the distribution of residuals
-plt.hist(residuals, bins=20)
+plt.figure(figsize=(10, 5))
+plt.hist(residuals, bins=20, rwidth=0.7, color='black')
 plt.xlabel('Residual')
 plt.ylabel('Frequency')
 #plt.title('Residual Distribution')
-plt.savefig(FIG_DIR / 'Figure_8.svg', format='svg')
+plt.tight_layout()
+plt.grid(axis='y', linestyle='--')
+plt.savefig(FIG_DIR / 'Figure_6.svg', format='svg')
 plt.close()
 
 # Save the model to disk

@@ -1,0 +1,2 @@
+Code, data divisions, and hyper-parameter details for the paper: <br>
+Dinh, D. H., Tran, Q. N. M., Dong, Q. H., & Ondrusch, N.: "Predictive Modeling for Software Project Management - A Case Study of TensorFlow" [Under review]

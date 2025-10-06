@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import joblib
 from pathlib import Path
 
-FIG_DIR = Path("figures_test_2")
+FIG_DIR = Path("figures")
 FIG_DIR.mkdir(exist_ok=True, parents=True)
 
 # Load the data
@@ -54,34 +54,41 @@ print("Labels count:\n", labels_count)
 
 ## Commits per month
 #commits_per_month.sort_index().plot(kind='line', figsize=(10, 6), marker='o')
-commits_per_month_filtered.sort_index().plot(kind='line', figsize=(10, 6), marker='o')
+commits_per_month_filtered.sort_index().plot(kind='line', figsize=(10, 5), marker='o', color='black')
 #plt.title('TensorFlow Commits Per Month')
-plt.xlabel('Month')
-plt.ylabel('Number of Commits')
-plt.xticks(rotation=45)
+plt.xlabel('Month', fontsize=14)
+plt.ylabel('Number of Commits', fontsize=14)
+plt.xticks(rotation=45, fontsize=14)
+plt.yticks(fontsize=14)
 plt.grid(axis='y', linestyle='--')
-plt.savefig(FIG_DIR / 'Figure_3.svg', format='svg')
+plt.tight_layout()
+plt.savefig(FIG_DIR / 'Figure_1.svg', format='svg')
 plt.close()
 
 ## Issue resolution time for closed issues
 # Plotting the histogram with a logarithmic scale
-n, bins, patches = plt.hist(closed_issues_df['resolution_time'], bins=50, log=True, linestyle='--')
+
+plt.figure(figsize=(10, 5))
+#20251006-QHD: add some spaces between the bars
+#n, bins, patches = plt.hist(closed_issues_df['resolution_time'], bins=50, log=True, linestyle='--')
+n, bins, patches = plt.hist(closed_issues_df['resolution_time'], bins=50, log=True, linestyle='--', rwidth=0.7, color='black') # rwidth < 1 leaves space between bars
 plt.ylabel('Number of Issues (log scale)')
 plt.xlabel('Resolution Time (days)')
 #plt.title('Histogram of Issue Resolution Times')
 plt.grid(axis='y', linestyle='--')
-plt.savefig(FIG_DIR / 'Figure_4.svg', format='svg')
+plt.tight_layout()
+plt.savefig(FIG_DIR / 'Figure_2.svg', format='svg')
 plt.close()
 
 ## Commits per contributor
-commits_per_contributor.head(10).iloc[::-1].plot(kind='barh')
+ax = commits_per_contributor.head(10).iloc[::-1].plot(kind='barh', figsize=(10, 5), color='black')
 #plt.title('Top 10 Contributors by Number of Commits')
 plt.ylabel('Contributor')
 plt.xlabel('Number of Commits')
 #plt.xticks(rotation=90)
 plt.grid(axis='x', linestyle='--')
 plt.tight_layout()
-plt.savefig(FIG_DIR / 'Figure_5.svg', format='svg')
+plt.savefig(FIG_DIR / 'Figure_3.svg', format='svg')
 plt.close()
 
 ## Visualizing the contributions of the top 10 contributors without bot
@@ -90,14 +97,15 @@ mask_bot = commits_per_contributor.index.str.contains("bot", case=False, na=Fals
            commits_per_contributor.index.str.contains("Unknown", case=False, na=False)
 contributors_no_bot = commits_per_contributor[~mask_bot]
 top10_without_bot = contributors_no_bot.head(10).iloc[::-1]
-top10_without_bot.head(10).plot(kind='barh')
+top10_without_bot.head(10).plot(kind='barh', figsize=(10, 5), color='black')
 #plt.title('Top 10 Contributors by Number of Contributions')
-plt.xlabel('Contributor')
-plt.ylabel('Number of Commits')
+#20251006-QHD: correct x and y labels
+plt.xlabel('Number of Commits')
+plt.ylabel('Contributor')
 #plt.xticks(rotation=90)
 plt.grid(axis='x', linestyle='--')
 plt.tight_layout()
-plt.savefig(FIG_DIR / 'Figure_6.svg', format='svg')
+plt.savefig(FIG_DIR / 'Figure_4.svg', format='svg')
 plt.close()
 
 ## Label frequency

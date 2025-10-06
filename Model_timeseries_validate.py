@@ -54,8 +54,8 @@ try:
 except Exception:
     HAS_LGBM = False
 
-FIG_DIR = Path("figures_test")
-OUT_DIR = Path("outputs_test")
+FIG_DIR = Path("figures")
+OUT_DIR = Path("outputs")
 FIG_DIR.mkdir(exist_ok=True, parents=True)
 OUT_DIR.mkdir(exist_ok=True, parents=True)
 
@@ -344,13 +344,17 @@ def evaluate_frozen_model(X, y, timeline, holdout_months=12):
     plt.plot(tl_test.values, y_test.values, label='Actual', linewidth=2)
     plt.plot(tl_test.values, y_pred, label='Frozen Lasso (from pkl)', linestyle='--')
     #plt.title(f'Frozen model on held-out last {holdout_months} months')
-    plt.xlabel('Month')
-    plt.ylabel('Closed Issues (next month)')
-    plt.xticks(rotation=45)
-    plt.legend()
+    plt.xlabel('Month', fontsize=14)
+    plt.ylabel('Closed Issues (next month)', fontsize=14)
+    plt.xticks(
+        rotation=45,
+        fontsize=14
+    )
+    plt.yticks(fontsize=14)
+    plt.legend(fontsize=14)
     plt.tight_layout()
     plt.grid(True, alpha=0.3)
-    plt.savefig(FIG_DIR / f'frozen_model_holdout_{holdout_months}m.svg', format='svg')
+    plt.savefig(FIG_DIR / 'Figure_12.svg', format='svg')
     plt.close()
 
     return frozen_df, frozen_metrics
@@ -363,13 +367,21 @@ def plot_predictions(preds_df: pd.DataFrame, title_suffix: str = ""):
         if col in preds_df.columns and preds_df[col].notna().any():
             plt.plot(preds_df['date'], preds_df[col], label=col.replace('_',' ').title(), linestyle='--')
     #plt.title(f'Walk-Forward: Actual vs Predictions {title_suffix}'.strip())
-    plt.xlabel('Month')
-    plt.ylabel('Closed Issues (next month)')
-    plt.xticks(rotation=45)
-    plt.legend(ncol=2)
+    plt.xlabel('Month', fontsize=14)
+    plt.ylabel('Closed Issues (next month)', fontsize=14)
+
+    plt.xticks(
+        preds_df['date'][::3],   # every 3rd actual date
+        rotation=45,
+        fontsize=14
+    )
+
+    plt.yticks(fontsize=14)
+
+    plt.legend(ncol=2, fontsize=14)
     plt.tight_layout()
     plt.grid(True, alpha=0.3)
-    outfile = FIG_DIR / f'walkforward_actual_vs_predictions{title_suffix.replace(" ", "_")}.svg'
+    outfile = FIG_DIR / 'Figure_10.svg'
     plt.savefig(outfile, format='svg')
     plt.close()
 
@@ -380,13 +392,23 @@ def plot_metrics_bar(metrics: Dict[str, Dict[str, float]], metric_name: str, tit
         labels.append(model_name)
         values.append(vals.get(metric_name, np.nan))
 
-    plt.figure(figsize=(12,7))
-    plt.bar(labels, values)
+    plt.figure(figsize=(10,5))
+    plt.bar(labels, values, color='black', width=0.5)
     #plt.title(title)
-    plt.ylabel(metric_name)
-    plt.xticks(rotation=30, ha='right')
+    plt.xlabel('Model', fontsize=14)
+    
+    if metric_name == 'R2':
+        ylabel = 'Coefficient of Determination R²'
+    elif metric_name == 'MSE':
+        ylabel = 'Mean Squared Error'
+    elif metric_name == 'MAE':
+        ylabel = 'Mean Absolute Error' 
+
+    plt.ylabel(ylabel, fontsize=14)
+    plt.xticks(rotation=30, ha='right', fontsize=14)
+    plt.xticks(fontsize=14)
     plt.tight_layout()
-    plt.grid(True, axis='y', alpha=0.3)
+    plt.grid(True, axis='y')
     plt.savefig(FIG_DIR / filename, format='svg')
     plt.close()
 
@@ -436,22 +458,24 @@ def main():
     save_metrics_csv(metrics, 'timeseries_eval_metrics.csv')
 
     plot_predictions(preds_df, title_suffix="")
-    plot_metrics_bar(metrics, 'MSE', 'Walk-Forward Comparison: MSE (lower is better)', 'wf_mse_comparison.svg')
-    plot_metrics_bar(metrics, 'MAE', 'Walk-Forward Comparison: MAE (lower is better)', 'wf_mae_comparison.svg')
-    plot_metrics_bar(metrics, 'R2', 'Walk-Forward Comparison: R² (higher is better)', 'wf_r2_comparison.svg')
+    plot_metrics_bar(metrics, 'MSE', 'Walk-Forward Comparison: MSE (lower is better)', 'Figure_7.svg')
+    plot_metrics_bar(metrics, 'MAE', 'Walk-Forward Comparison: MAE (lower is better)', 'Figure_8.svg')
+    plot_metrics_bar(metrics, 'R2', 'Walk-Forward Comparison: R² (higher is better)', 'Figure_9.svg')
 
     lasso_resid = preds_df['actual'] - preds_df['lasso_wf']
     arima_resid = preds_df['actual'] - preds_df['arima']
     plt.figure(figsize=(12,6))
-    plt.hist(lasso_resid.dropna(), bins=20, alpha=0.6, label='Lasso', color='steelblue', edgecolor='black')
-    plt.hist(arima_resid.dropna(), bins=20, alpha=0.6, label='ARIMA', color='orange', edgecolor='black')
+    plt.hist(lasso_resid.dropna(), bins=20, alpha=0.6, label='Lasso', color='steelblue', edgecolor='black', rwidth=0.7)
+    plt.hist(arima_resid.dropna(), bins=20, alpha=0.6, label='ARIMA', color='orange', edgecolor='black', rwidth=0.7)
     #plt.title('Residual Distributions: Lasso vs ARIMA (Walk-Forward)')
-    plt.xlabel('Residual')
-    plt.ylabel('Frequency')
-    plt.legend()
+    plt.xlabel('Residual', fontsize=14)
+    plt.ylabel('Frequency', fontsize=14)
+    plt.legend(fontsize=14)
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
     plt.tight_layout()
     plt.grid(True, axis='y', alpha=0.3)
-    plt.savefig(FIG_DIR / 'residuals_lasso_vs_arima.svg', format='svg')
+    plt.savefig(FIG_DIR / 'Figure_11.svg', format='svg')
     plt.close()
 
     print("\n=== Summary ===")

@@ -4,8 +4,8 @@ import joblib
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 from pathlib import Path
-FIG_DIR = Path("figures_test_2")
-OUT_DIR = Path("outputs_test_2")
+FIG_DIR = Path("figures")
+OUT_DIR = Path("outputs")
 FIG_DIR.mkdir(exist_ok=True, parents=True)
 OUT_DIR.mkdir(exist_ok=True, parents=True)
 
@@ -79,11 +79,18 @@ predicted_closed_issues_series = pd.Series(predicted_closed_issues, index=closed
 plt.figure(figsize=(14, 7))  # Adjust the size as needed
 plt.plot(closed_issues_per_month.index.astype(str), closed_issues_per_month.values, label='Actual Closed Issues')
 plt.plot(predicted_closed_issues_series.index.astype(str), predicted_closed_issues_series.values, label='Predicted Closed Issues', linestyle='--')
-plt.xlabel('Month')
-plt.ylabel('Number of Issues')
+plt.xlabel('Month', fontsize=14)
+plt.ylabel('Number of Issues', fontsize=14)
 #plt.title('Actual vs Predicted Closed Issues of TensorFlow Over Time')
-plt.legend()
-plt.xticks(rotation=90)  # Rotate the x-axis labels for better readability
+plt.legend(fontsize=14)
+#plt.xticks(rotation=90)  # Rotate the x-axis labels for better readability
+plt.xticks(
+    closed_issues_per_month.index[::3].astype(str),  # every 3rd month
+    rotation=45,
+    fontsize=14
+)
+plt.yticks(fontsize=14)
 plt.tight_layout()  # Adjust the layout to fit the labels
-plt.savefig(FIG_DIR / 'Figure_7.svg', format='svg')
-plt.show()
+plt.grid(True, alpha=0.3)
+plt.savefig(FIG_DIR / 'Figure_5.svg', format='svg')
+plt.close()
