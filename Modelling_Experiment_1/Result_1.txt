@@ -1,0 +1,69 @@
+M1: Predictive_modeling (close date, linear regression)
+Mean Squared Error: 5006.6667339593705
+R-squared: 0.8806232878856686
+CV MSE scores: [ 6641.09692344  5884.373528   14052.33227008  2038.66320233
+  4360.69665775]
+Average CV MSE: 6595.4325163216145
+
+
+M2: Predictive_modeling_enhanced (create + close date, linear regression)
+Mean Squared Error: 3847.4187324145596
+R-squared: 0.9082638763855725
+CV MSE scores: [ 6580.39681937  4236.98618982 12508.58225774  1984.50474018
+  2070.20211388]
+Average CV MSE: 5476.134424197812
+
+M3: Predictive_modeling_enhanced_ridgeregression (create + close date, ridge regression)
+Mean Squared Error: 3892.5000686592966
+R-squared: 0.9071889772591508
+CV MSE scores: [ 6380.87766289  4247.33587645 12589.47045952  1964.74469393
+  2161.62172279]
+Average CV MSE: 5468.810083115591
+
+M4: Predictive_modeling_enhanced_randomforest (create + close date, random forest)
+Mean Squared Error: 5812.770786666671
+R-squared: 0.8614029050346346
+CV MSE scores: [14130.4721      5205.40039333 17353.74743333  3604.0333
+  4547.20723571]
+Average CV MSE: 8968.17209247619
+
+M5: Predictive_modeling_enhanced_GBR (create + close date, GBMR)
+Mean Squared Error: 8233.49076685651
+R-squared: 0.8036843454539765
+CV MSE scores: [15918.03068483  5166.5295711  16362.52023963  5820.55058615
+  4962.6829604 ]
+Average CV MSE: 9646.062808423358
+
+M6: Predictive_modeling_enhanced_XGBoost (create + close date, XGBoost)
+Mean Squared Error: 9278.720150225765
+R-squared: 0.778762365657403
+CV MSE scores: [24199.30983086 10077.65783462 20678.03282804  4709.63735723
+  6247.30126145]
+Average CV MSE: 13182.387822439428
+
+M7: Predictive_modeling_enhanced_LGBMR (create + close date, LGBMR)
+Mean Squared Error: 8750.322802613644
+R-squared: 0.7913612346054836
+CV MSE scores: [23554.56980098  6974.21923772  9634.39715993  4526.82165697
+  4041.79759224]
+Average CV MSE: 9746.361089569198
+
+M8: Predictive_modeling_enhanced_SVR (create + close date, SVR)
+Mean Squared Error: 5840.678354415397
+R-squared: 0.8607374895280753
+CV MSE scores: [1.80689517 0.25997614 0.32402312 0.05840033 0.04038095]
+Average CV MSE: 0.49793514287117746
+
+M9: Predictive_modeling_enhanced_featuring (create + close date, commit + label analized, GBMR)
+Mean Squared Error: 10399.37737640973
+R-squared: 0.7520419182664075
+CV MSE scores: [26062.48998274  6080.93895096 16225.06366715  7596.52591683
+  3040.30318815]
+Average CV MSE: 11801.064341165713
+
+M10: Predictive_modeling_enhanced_featuring_ridge (create + close date, commit + label analized, ridge regression)
+Mean Squared Error: 4151.380263672269
+R-squared: 0.9010163542038659
+CV MSE scores: [ 6550.52205719  4316.95265423 13151.65563642  2012.67611642
+  2260.18800365]
+Average CV MSE: 5658.398893581509

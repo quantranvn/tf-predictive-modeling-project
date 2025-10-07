@@ -1,0 +1,44 @@
+M1: Model
+Mean Squared Error: 3225.192972001088
+R-squared: 0.9224112197363593
+Average CV MSE: 4508.170816045562
+
+M2: Model_featuring
+Mean Squared Error: 1365.1613697928942
+R-squared: 0.9671581804670893
+Average CV MSE: 4792.383143959527
+
+M3: Model_featuring_ridge
+Mean Squared Error: 5109.29618176525
+R-squared: 0.877085166007019
+Average CV MSE: 7496.084137386965
+
+M4: Model_featuring_lasso
+Mean Squared Error: 1357.5634512182992
+R-squared: 0.9673409643314543
+Average CV MSE: 4625.1065706795225
+
+M5: Model_featuring_GBM
+Mean Squared Error: 10005.742745618398
+R-squared: 0.7592908759246666
+Average CV MSE: 8223.11712100386
+
+M6: Model_featuring_randomforest
+Mean Squared Error: 4430.953607692309
+R-squared: 0.893404119130175
+Average CV MSE: 6144.767015897436
+
+M7: Model_featuring_ML_tpot
+Mean Squared Error: 1495.3851316614766
+R-squared: 0.9640253747923774
+Average CV MSE: 5749.971278514227
+
+M8: Model_featuring_ML_tpot_mix
+Mean Squared Error: 1798.9613683613984
+R-squared: 0.9567222118104864
+Average CV MSE: 7862.440240673421
+
+M9: Model_featuring_Stacking
+Mean Squared Error: 2848.3889364291167
+R-squared: 0.9314760309809117
+Average CV MSE: 6233.895106046834
